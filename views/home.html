@@ -1,4 +1,6 @@
 <div class="home">
+    <h1 id="hot-in-horror">What's Hot in Horror</h1>
+    <h2 class="home-section">Movies</h2>
     <div class="scroller-container">
         <div class="card" ng-repeat="movie in movies.results">
             <div class="image-overlay">
@@ -8,7 +10,7 @@
                     'low-rating': movie.vote_average <= 4,
                     'medium-rating': movie.vote_average > 4 && movie.vote_average < 7
                 }">
-                    {{ movie.vote_average * 10 | number:0 }}%
+                    {{ movie.vote_average * 10 | number: 0 }}%
                 </p>
             </div>
             <div class="card-info">
@@ -17,4 +19,9 @@
             </div>
         </div>
     </div>
+    <h2 class="home-section">TV</h2>
+    <div class="scroller-container">
+
+    </div>
+    <h2 class="home-section">Gaming</h2>
 </div>
