@@ -1,10 +1,8 @@
-app.factory('apiKey', ['$http', function($http) {
-    return $http.get('config.json')
-        .then(function(response) {
-            return response.data;
-        })
-        .catch(function(error) {
-            console.error('Error fetching API key:', error);
-            throw error;
-        });
+app.factory('apiKey', ['$http', async function($http) {
+    try {
+        const config = await $http.get('config.json');
+        return config.data;
+    } catch (error) {
+        console.log('Error fetching API key:', error);
+    }
 }]);

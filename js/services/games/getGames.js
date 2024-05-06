@@ -1,8 +1,10 @@
-app.factory('getGames', ['$http', 'idgbToken', function($http, idgbToken) {
-    return idgbToken.then(function(response) {
+app.factory('getGames', ['$http', 'idgbToken', async function($http, idgbToken) {
+    try {
         const url = 'https://api.igdb.com/v4/games';
-        const clientId = response.clientId;
-        const token = response.access_token;
+
+        const configKeys = await idgbToken;
+        const clientId = configKeys.clientId;
+        const token = configKeys.access_token;
         const config = {
             headers: {
                 'Accept': 'application/json',
@@ -11,13 +13,10 @@ app.factory('getGames', ['$http', 'idgbToken', function($http, idgbToken) {
             },
             body: "fields name, rating, cover, release_date.human; where themes = 19; limit 10; sort rating desc;"
         };
-        return $http.post(url, config)
-            .then(function(response) {
-                return response.data;
-            })
-            .catch(function(error) {
-                console.error('Error fetching games:', error);
-                throw error;
-            });
-    });
+
+        const response = await $http.post(url, config);
+        return response.data;
+    } catch (error) {
+        console.log('Error fetching games:', error);
+    }
 }]);
